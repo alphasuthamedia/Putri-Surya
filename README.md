@@ -1,2 +1,2 @@
-# Putri-Surya
+# Toko Putri Surya
 i dedicate this repo
