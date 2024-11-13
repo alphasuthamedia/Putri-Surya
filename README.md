@@ -6,6 +6,97 @@
 - Kelas: PBP F
 
 i dedicate this repo (ignore this)
+### Pertanyaan Tugas 8
+1. Apa kegunaan const di Flutter? Jelaskan apa keuntungan ketika menggunakan const pada kode Flutter. Kapan sebaiknya kita menggunakan const, dan kapan sebaiknya tidak digunakan?
+	const sebaiknya tidak digunakan untuk widget atau data yang nilainya berubah ubah selama runtime, jadi seharusnya gunakan const untuk widget atau data yang nilainya konstan, dan tidak ada perubahan saat runtime.
+	keuntungan menggunakan const:
+	- ketika kita menggunakan const, nilai dari const tidak akan bisa berubah, 	ini bisa menjadi salah satu cara kita untuk memastikan variabel tersebut tidak berubah nilainya, jika berubah akan terjadi error jadi meminimalisasi bug
+	- dengan menggunakan const kita akan menghindari rebuilding dari objek, hal ini pasti meringankan kinerja dari program kita.
+	- widget pada const hanya perlu untuk dibuat sekali dan tidak perlu dirender ulang atau direbuild lagi, hal ini akan membuat keuntungan berupa penghematan memori yang sangat signifikan jika memang banyak widget yang tidak kita gunakan const
+
+2. Jelaskan dan bandingkan penggunaan Column dan Row pada Flutter. Berikan contoh implementasi dari masing-masing layout widget ini!
+	- Row - baris, column - kolom. sebenarnya cukup sederhana, row akan memetakan (seperti menjadi container) baris ke baris, jika ada elemen baru maka akan diletakkan dibawah elemen yang tadi, sementara column akan memetakan kolom ke kolom, jadi jika ada elemen baru maka akan diletakkan disamping elemen yang tadi.
+	contoh implementasi
+	```dart
+	child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // Row untuk menampilkan 3 InfoCard secara horizontal.
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                InfoCard(title: 'NPM', content: npm),
+                InfoCard(title: 'Name', content: name),
+                InfoCard(title: 'Class', content: className),
+              ],
+            ),
+
+            // Memberikan jarak vertikal 16 unit.
+            const SizedBox(height: 16.0),
+
+            // Menempatkan widget berikutnya di tengah halaman.
+            Center(
+              child: Column(
+                // Menyusun teks dan grid item secara vertikal.
+
+                children: [
+                  // Menampilkan teks sambutan dengan gaya tebal dan ukuran 18.
+                  const Padding(
+                    padding: EdgeInsets.only(top: 16.0),
+                    child: Text(
+                      'Selamat datang di Toko Putri Surya',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
+                      ),
+                    ),
+                  ),
+
+                  // Grid untuk menampilkan ItemCard dalam bentuk grid 3 kolom.
+                  GridView.count(
+                    primary: true,
+                    padding: const EdgeInsets.all(20),
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    crossAxisCount: 3,
+                    // Agar grid menyesuaikan tinggi kontennya.
+                    shrinkWrap: true,
+
+                    // Menampilkan ItemCard untuk setiap item dalam list items.
+                    children: items.map((ItemHomepage item) {
+                      return ItemCard(item);
+                    }).toList(),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+	```
+	di dalam kode tersebut terdapat wrapper column yang di dalam wrapper column terdapat beberapa childer seperti row, seeprti ini bisa dibayang wrapper utamanya berdasarkan kolum, di kolumn pertama ada beberapa wrappingan beradasrkan row
+
+3. Sebutkan apa saja elemen input yang kamu gunakan pada halaman form yang kamu buat pada tugas kali ini. Apakah terdapat elemen input Flutter lain yang tidak kamu gunakan pada tugas ini? Jelaskan!
+	1. **TextFormField**: digunakan untuk memasukkan teks dari pengguna.
+   - Field untuk **Product Name** (`_productName`), menerima teks biasa.
+   - Field untuk **Product Price** (`_productPrice`), diharapkan menerima angka melalui percobaan parsing.
+   - Field untuk **Product Description** (`_productDescription`), menerima teks deskripsi produk.
+   - Field untuk **Product Quantity** (`_productQuantity`), menerima teks tapi diparsing (dicoba parsing) untuk dirubah menajadi interger
+
+	2. **ElevatedButton**: digunakan sebagai tombol untuk menyimpan data. Tombol ini men-*trigger* validasi form dan menampilkan dialog konfirmasi.
+
+4. Bagaimana cara kamu mengatur tema (theme) dalam aplikasi Flutter agar aplikasi yang dibuat konsisten? Apakah kamu mengimplementasikan tema pada aplikasi yang kamu buat?
+	Kita bisa gunakan ThemeData. ya saya mengimplementasikannya
+	```dart
+	theme: ThemeData(
+              colorScheme: ColorScheme.fromSwatch(
+              primarySwatch: Colors.deepPurple,
+        ).copyWith(secondary: Colors.deepPurple[400]),
+        useMaterial3: true,
+      ),
+	```
+
+5. Bagaimana cara kamu menangani navigasi dalam aplikasi dengan banyak halaman pada Flutter?
+	Kita gunakan bantuan dari widget navigator. kita bisa gunakan Navigator.push untuk memasukkan suatu route ke dalam stack route yang dikelola oleh navigator. selain itu kita juga bisa gunakan Navigator.pushReplacement yang berguna untuk menghapus route yang sedang ditampilkan oleh pengguna dan menggantinya dengan suatu route tersebut (yang akan ditambahkan itu)
 
 ### Pertanyaan Tugas 7 
 

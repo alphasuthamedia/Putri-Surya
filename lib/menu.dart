@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:putri_surya/left_drawer.dart';
+import 'package:putri_surya/product_entry_form.dart';
 
 class MyHomePage extends StatelessWidget {
     final String npm = '2306275935'; // NPM
@@ -89,6 +91,7 @@ class MyHomePage extends StatelessWidget {
           ],
         ),
       ),
+      drawer: const LeftDrawer(),
     );
   }
 }
@@ -159,6 +162,10 @@ class ItemCard extends StatelessWidget {
             ..showSnackBar(
               SnackBar(content: Text("Kamu telah menekan tombol ${item.name}!"))
             );
+          // route ke page yang sesuai
+          if (item.name == "Tambah Produk") {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const ProductEntryFormPage()));
+          }
         },
         // Container untuk menyimpan Icon dan Text
         child: Container(
